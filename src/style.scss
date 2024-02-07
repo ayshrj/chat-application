@@ -173,7 +173,6 @@
     }
 
     .sidebar {
-      flex: 1;
       background-color: #f0f0f0;
       position: relative;
       height: 100%;
@@ -301,7 +300,14 @@
                 color: #bababa;
             }
         }
-    }
+      }
+
+      .iconlogout {
+        position: absolute;
+        left: 20px;
+        bottom: 10px;
+        border: none;
+      }
     
     }
 

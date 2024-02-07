@@ -4,7 +4,7 @@ import { AuthContext } from "../context/AuthContext";
 import { ChatContext } from "../context/ChatContext";
 import { db } from "../firebase";
 
-const Chats = () => {
+const Chats = ({ isCollapsed }) => {
   const [chats, setChats] = useState([]);
 
   const { currentUser } = useContext(AuthContext);
@@ -48,20 +48,22 @@ const Chats = () => {
               onClick={() => handleSelect(chat[1].userInfo)}
             >
               <img src={chat[1].userInfo.photoURL} alt="" />
-              <div className="userChatInfoContainer">
-                <div className="userChatInfo">
-                  <span>{chat[1].userInfo.displayName}</span>
-                  <p className="userChatInfoContent">
-                    {chat[1].lastMessage &&
-                    chat[1].lastMessage?.text.length <= 20
-                      ? chat[1].lastMessage?.text
-                      : `${chat[1].lastMessage?.text.slice(0, 20)}.....`}
+              {!isCollapsed && (
+                <div className="userChatInfoContainer">
+                  <div className="userChatInfo">
+                    <span>{chat[1].userInfo.displayName}</span>
+                    <p className="userChatInfoContent">
+                      {chat[1].lastMessage &&
+                      chat[1].lastMessage?.text.length <= 20
+                        ? chat[1].lastMessage?.text
+                        : `${chat[1].lastMessage?.text.slice(0, 20)}.....`}
+                    </p>
+                  </div>
+                  <p className="userChatInfoTime">
+                    {chat[1].date && formatTime(chat[1].date)}
                   </p>
                 </div>
-                <p className="userChatInfoTime">
-                  {chat[1].date && formatTime(chat[1].date)}
-                </p>
-              </div>
+              )}
             </button>
           ))}
     </div>

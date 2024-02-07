@@ -14,7 +14,7 @@ import { db } from "../firebase";
 import { AuthContext } from "../context/AuthContext";
 import { IconSearch } from "@tabler/icons-react";
 
-const Search = () => {
+const Search = ({ isCollapsed }) => {
   const [username, setUsername] = useState("");
   const [user, setUser] = useState(null);
   const [err, setErr] = useState(false);
@@ -81,18 +81,42 @@ const Search = () => {
   return (
     <div className="search">
       <div className="searchForm">
-        <span style={{ position: "absolute", left: 33, top: 78 }}>
-          <IconSearch size={10} color={"#A6918A"} />
-        </span>
-        <input
-          type="text"
-          placeholder="Find a user"
-          onKeyDown={handleKey}
-          onChange={(e) => setUsername(e.target.value)}
-          value={username}
-          id="search-box"
-          style={{ paddingLeft: 30 }}
-        />
+        {!isCollapsed ? (
+          <>
+            <span style={{ position: "absolute", left: 33, top: 78 }}>
+              <IconSearch size={10} color={"#A6918A"} />
+            </span>
+
+            <input
+              type="text"
+              placeholder="Find a user"
+              onKeyDown={handleKey}
+              onChange={(e) => setUsername(e.target.value)}
+              value={username}
+              id="search-box"
+              style={{ paddingLeft: 30 }}
+            />
+          </>
+        ) : (
+          <>
+            <span style={{ position: "absolute", left: 33, top: 78 }}>
+              <IconSearch size={10} color={"#A6918A"} />
+            </span>
+            <div
+              style={{
+                backgroundColor: "white",
+                border: "1px solid #000",
+                color: "rgb(166, 145, 145)",
+                outline: "none",
+                width: "32%",
+                height: "16px",
+                borderRadius: "50px",
+                padding: "10px",
+                boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
+              }}
+            ></div>
+          </>
+        )}
       </div>
       {err && <span>User not found!</span>}
       {user && (
