@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import Navbar from "./Navbar";
 import Search from "./Search";
 import Chats from "./Chats";
@@ -7,9 +7,14 @@ import { auth } from "../firebase";
 import { AuthContext } from "../context/AuthContext";
 import { IconArrowLeft, IconArrowRight, IconLogout } from "@tabler/icons-react";
 
-const Sidebar = () => {
-  const [isCollapsed, setIsCollapsed] = useState(true);
-  const { currentUser } = useContext(AuthContext);
+const Sidebar = ({ containerWidth }) => {
+  const [isCollapsed, setIsCollapsed] = useState(
+    containerWidth < 522 ? true : false
+  );
+
+  useEffect(() => {
+    setIsCollapsed(containerWidth < 522 ? true : false);
+  }, [containerWidth]);
 
   return (
     <div className="sidebar" style={{ flex: !isCollapsed ? 1 : "" }}>
