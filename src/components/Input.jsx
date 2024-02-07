@@ -13,6 +13,7 @@ import {
 import { db, storage } from "../firebase";
 import { v4 as uuid } from "uuid";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
+import { IconPhotoPlus, IconSend2 } from "@tabler/icons-react";
 
 const Input = () => {
   const [text, setText] = useState("");
@@ -55,22 +56,24 @@ const Input = () => {
       });
     }
 
-    await updateDoc(doc(db, "userChats", currentUser.uid), {
-      [data.chatId + ".lastMessage"]: {
-        text,
-      },
-      [data.chatId + ".date"]: serverTimestamp(),
-    });
+    if (text) {
+      await updateDoc(doc(db, "userChats", currentUser.uid), {
+        [data.chatId + ".lastMessage"]: {
+          text,
+        },
+        [data.chatId + ".date"]: serverTimestamp(),
+      });
 
-    await updateDoc(doc(db, "userChats", data.user.uid), {
-      [data.chatId + ".lastMessage"]: {
-        text,
-      },
-      [data.chatId + ".date"]: serverTimestamp(),
-    });
+      await updateDoc(doc(db, "userChats", data.user.uid), {
+        [data.chatId + ".lastMessage"]: {
+          text,
+        },
+        [data.chatId + ".date"]: serverTimestamp(),
+      });
 
-    setText("");
-    setImg(null);
+      setText("");
+      setImg(null);
+    }
   };
 
   const handleKeyPress = (e) => {
@@ -80,26 +83,52 @@ const Input = () => {
   };
 
   return (
-    <div className="input">
+    <div className="input" style={{ paddingBottom: 40, margin: 0 }}>
       <input
         type="text"
         placeholder="Type something..."
         onChange={(e) => setText(e.target.value)}
         onKeyPress={handleKeyPress}
         value={text}
+        style={{ borderRadius: "50px", padding: "10px" }}
       />
       <div className="send">
-        <img src={Attach} alt="" />
         <input
           type="file"
           style={{ display: "none" }}
           id="file"
           onChange={(e) => setImg(e.target.files[0])}
         />
-        <label htmlFor="file">
-          <img src={Img} alt="" />
+        <label
+          htmlFor="file"
+          style={{
+            height: "24px",
+            cursor: "pointer",
+            color: "#b1b1b1",
+            transform: "translate(4px, 15px)",
+          }}
+        >
+          <IconPhotoPlus />
         </label>
-        <button onClick={handleSend}>Send</button>
+        <button
+          onClick={handleSend}
+          style={{
+            display: "flex",
+            alignContent: "center",
+            alignItems: "center",
+            justifyContent: "center",
+            justifyItems: "center",
+          }}
+        >
+          <div>
+            <IconSend2
+              size={15}
+              style={{
+                transform: "translateY(2px)",
+              }}
+            />
+          </div>
+        </button>
       </div>
     </div>
   );

@@ -12,6 +12,8 @@ import {
 } from "firebase/firestore";
 import { db } from "../firebase";
 import { AuthContext } from "../context/AuthContext";
+import { IconSearch } from "@tabler/icons-react";
+
 const Search = () => {
   const [username, setUsername] = useState("");
   const [user, setUser] = useState(null);
@@ -79,12 +81,17 @@ const Search = () => {
   return (
     <div className="search">
       <div className="searchForm">
+        <span style={{ position: "absolute", left: 33, top: 78 }}>
+          <IconSearch size={10} color={"#A6918A"} />
+        </span>
         <input
           type="text"
           placeholder="Find a user"
           onKeyDown={handleKey}
           onChange={(e) => setUsername(e.target.value)}
           value={username}
+          id="search-box"
+          style={{ paddingLeft: 30 }}
         />
       </div>
       {err && <span>User not found!</span>}

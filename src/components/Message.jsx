@@ -48,9 +48,11 @@ const Message = ({ message, prevId }) => {
             borderRadius:
               prevId === null || prevId !== message.senderId
                 ? message.senderId === currentUser.uid
-                  ? "10px 0px 5px 5px"
+                  ? "5px 0px 5px 5px"
                   : "0px 5px 5px 5px"
                 : "5px",
+            backgroundColor:
+              message.senderId === currentUser.uid ? "#4399FF" : "#DCE8FF",
           }}
         >
           {message.text}

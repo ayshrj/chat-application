@@ -5,6 +5,8 @@ import { auth, db, storage } from "../firebase";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { doc, setDoc } from "firebase/firestore";
 import { useNavigate, Link } from "react-router-dom";
+import Logo from "../assets/BlinckConvoLogo.png";
+import { IconUserPlus } from "@tabler/icons-react";
 
 const Register = () => {
   const [err, setErr] = useState(false);
@@ -17,7 +19,14 @@ const Register = () => {
     const displayName = e.target[0].value;
     const email = e.target[1].value;
     const password = e.target[2].value;
-    const file = e.target[3].files[0];
+    const fileInput = e.target[3];
+
+    if (fileInput.files.length === 0 || !fileInput.files[0].name) {
+      setErr("Please add something");
+      setLoading(false);
+    }
+
+    const file = fileInput.files[0];
 
     try {
       //Create user
@@ -62,23 +71,35 @@ const Register = () => {
   return (
     <div className="formContainer">
       <div className="formWrapper">
-        <span className="logo">ChatApp</span>
+        <span className="logo">
+          <img src={Logo} />
+          <div>BlinkConvo</div>
+        </span>
         <span className="title">Register</span>
         <form onSubmit={handleSubmit}>
           <input required type="text" placeholder="display name" />
           <input required type="email" placeholder="email" />
           <input required type="password" placeholder="password" />
           <input required style={{ display: "none" }} type="file" id="file" />
-          <label htmlFor="file">
-            <img src={Add} alt="" />
+          <label htmlFor="file" style={{ justifyContent: "center" }}>
+            <div
+              style={{
+                margin: "-1px",
+                padding: 0,
+                border: "2px solid #4399FF",
+                borderRadius: "30px",
+              }}
+            >
+              <IconUserPlus />
+            </div>
             <span>Add an avatar</span>
           </label>
           <button disabled={loading}>Sign up</button>
-          {loading && "Uploading and compressing the image please wait..."}
+          {loading && <div className="loading"></div>}
           {err && <span>Something went wrong</span>}
         </form>
         <p>
-          You do have an account? <Link to="/register">Login</Link>
+          Already have an account? <Link to="/login">Login</Link>
         </p>
       </div>
     </div>
