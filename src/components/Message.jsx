@@ -1,6 +1,9 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { ChatContext } from "../context/ChatContext";
+import VideoPlayer from "./VideoPlayer";
+import ImagePlayer from "./ImagePlayer";
+import AudioPlayer from "./AudioPlayer";
 
 const Message = ({ message, prevId }) => {
   const { currentUser } = useContext(AuthContext);
@@ -56,9 +59,9 @@ const Message = ({ message, prevId }) => {
           }}
         >
           {message.text}
-          {message.img && <img src={message.img} alt="" />}
-          {message.video && <video src={message.video} alt="" autoPlay />}
-          {message.audio && <audio src={message.audio} alt="" />}
+          {message.img && <ImagePlayer imageSrc={message.img} />}
+          {message.video && <VideoPlayer videoSrc={message.video} />}
+          {message.audio && <AudioPlayer audioSrc={message.audio} />}
 
           <div
             className="messageContentTime"

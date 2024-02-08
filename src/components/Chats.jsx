@@ -53,10 +53,11 @@ const Chats = ({ isCollapsed }) => {
                   <div className="userChatInfo">
                     <span>{chat[1].userInfo.displayName}</span>
                     <p className="userChatInfoContent">
-                      {chat[1].lastMessage &&
-                      chat[1].lastMessage?.text.length <= 20
-                        ? chat[1].lastMessage?.text
-                        : `${chat[1].lastMessage?.text.slice(0, 20)}.....`}
+                      {chat[1].lastMessage
+                        ? chat[1].lastMessage?.text.length <= 20
+                          ? chat[1].lastMessage?.text
+                          : `${chat[1].lastMessage?.text.slice(0, 20)}.....`
+                        : "    "}
                     </p>
                   </div>
                   <p className="userChatInfoTime">

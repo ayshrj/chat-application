@@ -148,6 +148,8 @@ const Input = () => {
                 position: "absolute",
                 transform: "translate(20px, 25px)",
               }}
+              muted
+              autoPlay
             />
           )}
           {currFileExtension === "audio" && (
