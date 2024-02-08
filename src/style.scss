@@ -161,7 +161,7 @@
     border: 1px solid white;
     border-radius: 20px;
     width: 65%;
-    height: 80%;
+    height: 80vh;
     display: flex;
     overflow: hidden;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -417,7 +417,7 @@
               user-select: none;
             }
 
-            img {
+            img, video, audio {
               width: 100%;
             }
           }

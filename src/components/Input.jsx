@@ -15,23 +15,68 @@ import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 
 const Input = () => {
   const [text, setText] = useState("");
-  const [imgUrl, setImgUrl] = useState(""); // State to hold the URL of the selected image
+  const [file, setFile] = useState(null); // State to hold the selected file
+  const [url, setUrl] = useState(""); // State to hold the URL of the selected image
+  const [currFileExtension, setCurrFileExtension] = useState("");
 
   const { currentUser } = useContext(AuthContext);
   const { data } = useContext(ChatContext);
 
+  function checkFileType(file) {
+    var fileName = file.name;
+    var fileExtension = fileName.split(".").pop().toLowerCase();
+
+    var imageExtensions = ["jpg", "jpeg", "png", "gif", "bmp"];
+    var videoExtensions = ["mp4", "avi", "mov", "mkv"];
+    var audioExtensions = ["mp3", "wav", "ogg"];
+
+    if (imageExtensions.indexOf(fileExtension) !== -1) {
+      return "img";
+    } else if (videoExtensions.indexOf(fileExtension) !== -1) {
+      return "video";
+    } else if (audioExtensions.indexOf(fileExtension) !== -1) {
+      return "audio";
+    } else {
+      console.log("File type not supported");
+      return null;
+    }
+  }
+
   const handleSend = async () => {
-    if (imgUrl) {
-      // If there's an image URL, handle sending image message
-      await updateDoc(doc(db, "chats", data.chatId), {
-        messages: arrayUnion({
-          id: uuid(),
-          text,
-          senderId: currentUser.uid,
-          date: Timestamp.now(),
-          img: imgUrl, // Use the image URL here
-        }),
-      });
+    if (file) {
+      const fileType = checkFileType(file);
+      setCurrFileExtension(fileType);
+      if (fileType === "img") {
+        await updateDoc(doc(db, "chats", data.chatId), {
+          messages: arrayUnion({
+            id: uuid(),
+            text,
+            senderId: currentUser.uid,
+            date: Timestamp.now(),
+            img: url,
+          }),
+        });
+      } else if (fileType === "video") {
+        await updateDoc(doc(db, "chats", data.chatId), {
+          messages: arrayUnion({
+            id: uuid(),
+            text,
+            senderId: currentUser.uid,
+            date: Timestamp.now(),
+            video: url,
+          }),
+        });
+      } else if (fileType === "audio") {
+        await updateDoc(doc(db, "chats", data.chatId), {
+          messages: arrayUnion({
+            id: uuid(),
+            text,
+            senderId: currentUser.uid,
+            date: Timestamp.now(),
+            audio: url,
+          }),
+        });
+      }
     } else if (text) {
       // If no image URL, handle sending text message
       await updateDoc(doc(db, "chats", data.chatId), {
@@ -44,7 +89,6 @@ const Input = () => {
       });
     }
 
-    // Clear input fields after sending message
     await updateDoc(doc(db, "userChats", currentUser.uid), {
       [data.chatId + ".lastMessage"]: {
         text,
@@ -60,14 +104,18 @@ const Input = () => {
     });
 
     setText("");
-    setImgUrl("");
+    setUrl("");
+    setFile(null);
   };
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (file) {
-      const imageUrl = URL.createObjectURL(file); // Create URL for the selected image
-      setImgUrl(imageUrl); // Set the image URL in the state
+      const Url = URL.createObjectURL(file);
+      setFile(file);
+      setUrl(Url);
+      const fileType = checkFileType(file);
+      setCurrFileExtension(fileType);
     }
   };
 
@@ -79,23 +127,48 @@ const Input = () => {
 
   return (
     <>
-      {imgUrl && (
-        <img
-          src={imgUrl}
-          alt="Selected Image"
-          style={{
-            maxWidth: "100%",
-            maxHeight: "300px",
-            position: "absolute",
-            height: 30,
-            transform: "translate(20px, 25px)",
-          }}
-        />
+      {file && (
+        <>
+          {currFileExtension === "img" && (
+            <img
+              src={url}
+              alt="Selected Item"
+              style={{
+                height: "30px",
+                position: "absolute",
+                transform: "translate(20px, 25px)",
+              }}
+            />
+          )}
+          {currFileExtension === "video" && (
+            <video
+              src={url}
+              alt="Selected Item"
+              style={{
+                height: "30px",
+                position: "absolute",
+                transform: "translate(20px, 25px)",
+              }}
+            />
+          )}
+          {currFileExtension === "audio" && (
+            <audio
+              src={url}
+              alt="Selected Item"
+              style={{
+                height: "30px",
+                position: "absolute",
+                transform: "translate(20px, 25px)",
+              }}
+            />
+          )}
+        </>
       )}
+
       <div className="input" style={{ paddingBottom: 40, margin: 0 }}>
         <input
           type="text"
-          placeholder={`${!imgUrl ? `Type something...` : ""}`}
+          placeholder={`${!url ? `Type something...` : ""}`}
           onChange={(e) => setText(e.target.value)}
           onKeyPress={handleKeyPress}
           value={text}

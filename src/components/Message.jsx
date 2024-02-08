@@ -57,6 +57,8 @@ const Message = ({ message, prevId }) => {
         >
           {message.text}
           {message.img && <img src={message.img} alt="" />}
+          {message.video && <video src={message.video} alt="" autoPlay />}
+          {message.audio && <audio src={message.audio} alt="" />}
 
           <div
             className="messageContentTime"

@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { IconVideo } from "@tabler/icons-react";
+// import { IconVideo } from "@tabler/icons-react";
 import Messages from "./Messages";
 import Input from "./Input";
 import { ChatContext } from "../context/ChatContext";
@@ -37,9 +37,9 @@ const Chat = () => {
               <span>{data.user?.displayName}</span>
             </div>
 
-            <div className="chatIcons">
+            {/* <div className="chatIcons">
               <IconVideo />
-            </div>
+            </div> */}
             <div className="border" />
           </div>
           <Messages />
