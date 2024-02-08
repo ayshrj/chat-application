@@ -12,6 +12,7 @@ import { IconUserPlus } from "@tabler/icons-react";
 const Register = () => {
   const [err, setErr] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [avatarFile, setAvatarFile] = useState(null); // State to manage the attached file
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -20,7 +21,7 @@ const Register = () => {
     const displayName = e.target[0].value;
     const email = e.target[1].value;
     const password = e.target[2].value;
-    const file = e.target[3].files[0];
+    const file = avatarFile; // Accessing file from state
 
     try {
       const res = await createUserWithEmailAndPassword(auth, email, password);
@@ -62,7 +63,7 @@ const Register = () => {
     <div className="formContainer">
       <div className="formWrapper">
         <span className="logo">
-          <img src={Logo} />
+          <img src={Logo} alt="Logo" />
           <div>BlinkConvo</div>
         </span>
         <span className="title">Register</span>
@@ -70,19 +71,30 @@ const Register = () => {
           <input required type="text" placeholder="Display name" />
           <input required type="email" placeholder="Email" />
           <input required type="password" placeholder="Password" />
-          <input style={{ display: "none" }} type="file" id="file" />
+          <input
+            style={{ display: "none" }}
+            type="file"
+            id="file"
+            onChange={(e) => setAvatarFile(e.target.files[0])} // Update file state on change
+          />
           <label htmlFor="file" style={{ justifyContent: "center" }}>
             <div
               style={{
                 margin: "-1px",
                 padding: 0,
-                border: "2px solid #4399FF",
+                border: `2px solid ${avatarFile ? "#4399FF" : "#FFF"}`,
                 borderRadius: "30px",
+                color: `${avatarFile ? "#FFF" : "#4399FF"}`,
+                backgroundColor: `${!avatarFile ? "#FFF" : "#4399FF"}`,
               }}
             >
               <IconUserPlus />
             </div>
-            <span>Add an avatar</span>
+            <span>
+              {!avatarFile
+                ? "Add an avatar"
+                : "Want to change avatar? Click again"}
+            </span>
           </label>
           <button disabled={loading}>Sign up</button>
           {loading && <div className="loading"></div>}
