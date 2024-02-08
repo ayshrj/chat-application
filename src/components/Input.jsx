@@ -78,7 +78,6 @@ const Input = () => {
         });
       }
     } else if (text) {
-      // If no image URL, handle sending text message
       await updateDoc(doc(db, "chats", data.chatId), {
         messages: arrayUnion({
           id: uuid(),

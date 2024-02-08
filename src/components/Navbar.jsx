@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { signOut } from "firebase/auth";
 import { auth } from "../firebase";
+import DefaultProfilePic from "https://firebasestorage.googleapis.com/v0/b/chat-app-878be.appspot.com/o/DefaultProfilePic.jpg?alt=media&token=d0cc0ba3-8c4b-4420-ae85-495435ff6ae8";
 import { AuthContext } from "../context/AuthContext";
 import { IconLogout } from "@tabler/icons-react";
 
