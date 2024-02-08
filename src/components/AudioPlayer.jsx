@@ -16,7 +16,12 @@ const AudioPlayer = ({ src }) => {
   return (
     <div>
       <audio ref={audioRef} src={src} />
-      <button onClick={togglePlay}>{isPlaying ? "Pause" : "Play"}</button>
+      <button
+        onClick={togglePlay}
+        style={{ borderRadius: "9px", border: "none", padding: "9px" }}
+      >
+        {isPlaying ? "Pause" : "Play"}
+      </button>
     </div>
   );
 };
