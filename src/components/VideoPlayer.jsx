@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { IconSquareRoundedX } from "@tabler/icons-react";
 
-const VideoPlayer = ({ videoSrc }) => {
+const VideoPlayer = ({ src }) => {
   const [modalOpen, setModalOpen] = useState(false);
 
   const openModal = () => {
@@ -14,7 +14,7 @@ const VideoPlayer = ({ videoSrc }) => {
 
   return (
     <div>
-      <video src={videoSrc} autoPlay loop muted onClick={openModal} />
+      <video src={src} autoPlay loop muted onClick={openModal} />
       {modalOpen && (
         <div className="modal">
           <div className="modal-content">
@@ -22,10 +22,13 @@ const VideoPlayer = ({ videoSrc }) => {
               &times;
             </span>
             <video
-              src={videoSrc}
+              src={src}
               autoPlay
               controls
               onClick={(e) => e.stopPropagation()}
+              style={{
+                height: "80vh",
+              }}
             />
             <button
               className="close-button"

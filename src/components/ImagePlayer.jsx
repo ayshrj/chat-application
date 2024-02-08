@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { IconSquareRoundedX } from "@tabler/icons-react";
 
-const ImagePlayer = ({ imageSrc }) => {
+const ImagePlayer = ({ src }) => {
   const [modalOpen, setModalOpen] = useState(false);
 
   const openModal = () => {
@@ -15,7 +15,7 @@ const ImagePlayer = ({ imageSrc }) => {
   return (
     <div>
       <img
-        src={imageSrc}
+        src={src}
         alt="Image"
         onClick={openModal}
         style={{ cursor: "pointer" }}
@@ -23,13 +23,14 @@ const ImagePlayer = ({ imageSrc }) => {
       {modalOpen && (
         <div className="modal">
           <div className="modal-content">
-            <img src={imageSrc} alt="Image" />
+            <img src={src} alt="Image" />
             <button
               className="close-button"
               onClick={closeModal}
               style={{
                 position: "absolute",
-                right: 0,
+                top: 2,
+                right: 2,
                 background: "none",
                 border: 0,
                 color: "#4399FF",

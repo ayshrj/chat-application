@@ -12,9 +12,9 @@ const Message = ({ message, prevId }) => {
 
   const ref = useRef();
 
-  useEffect(() => {
-    ref.current?.scrollIntoView({ behavior: "smooth" });
-  }, [message]);
+  // useEffect(() => {
+  //   ref.current?.scrollIntoView({ behavior: "smooth" });
+  // }, [message]);
 
   const formatTime = (timestamp) => {
     const milliseconds =
@@ -59,9 +59,9 @@ const Message = ({ message, prevId }) => {
           }}
         >
           {message.text}
-          {message.img && <ImagePlayer imageSrc={message.img} />}
-          {message.video && <VideoPlayer videoSrc={message.video} />}
-          {message.audio && <AudioPlayer audioSrc={message.audio} />}
+          {message.image && <ImagePlayer src={message.image} />}
+          {message.video && <VideoPlayer src={message.video} />}
+          {message.audio && <AudioPlayer src={message.audio} />}
 
           <div
             className="messageContentTime"

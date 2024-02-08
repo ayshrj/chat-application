@@ -3,7 +3,7 @@ import React, { useContext } from "react";
 import Messages from "./Messages";
 import Input from "./Input";
 import { ChatContext } from "../context/ChatContext";
-import Logo from "../assets/BlinckConvoLogo.png";
+import Logo from "../assets/BlinkConvoLogo.png";
 
 const Chat = () => {
   const { data } = useContext(ChatContext);
