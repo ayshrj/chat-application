@@ -13,6 +13,7 @@ const Register = () => {
   const [err, setErr] = useState(false);
   const [loading, setLoading] = useState(false);
   const [avatarFile, setAvatarFile] = useState(null); // State to manage the attached file
+  const [displayName, setDisplayName] = useState("");
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -68,7 +69,17 @@ const Register = () => {
         </span>
         <span className="title">Register</span>
         <form onSubmit={handleSubmit}>
-          <input required type="text" placeholder="Display name" />
+          <input
+            required
+            type="text"
+            placeholder="Name"
+            value={displayName}
+            onChange={(event) => {
+              const inputValue = event.target.value;
+              const filteredValue = inputValue.replace(/[^a-zA-Z0-9\s]/g, "");
+              setDisplayName(filteredValue);
+            }}
+          />
           <input required type="email" placeholder="Email" />
           <input required type="password" placeholder="Password" />
           <input
