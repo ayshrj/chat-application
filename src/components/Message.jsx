@@ -8,13 +8,18 @@ import AudioPlayer from "./AudioPlayer";
 const Message = ({ message, prevId }) => {
   const { currentUser } = useContext(AuthContext);
   const { data } = useContext(ChatContext);
-  // const [openModal, setOpenModal] = useState(true);
 
   const ref = useRef();
 
-  // useEffect(() => {
-  //   ref.current?.scrollIntoView({ behavior: "smooth" });
-  // }, [message]);
+  const scrollToBottom = () => {
+    if (ref.current) {
+      ref.current.scrollIntoView({ behavior: "smooth", block: "end" });
+    }
+  };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [message]);
 
   const formatTime = (timestamp) => {
     const milliseconds =

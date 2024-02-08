@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import Add from "../img/addAvatar.png";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth, db, storage } from "../firebase";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
@@ -12,7 +11,7 @@ import { IconUserPlus } from "@tabler/icons-react";
 const Register = () => {
   const [err, setErr] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [avatarFile, setAvatarFile] = useState(null); // State to manage the attached file
+  const [avatarFile, setAvatarFile] = useState(null);
   const [displayName, setDisplayName] = useState("");
   const navigate = useNavigate();
 
