@@ -2,9 +2,10 @@ import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { getStorage } from "firebase/storage";
 import { getFirestore } from "firebase/firestore";
+dotenv.config();
 
 const firebaseConfig = {
-  apiKey: "AIzaSyD9SsBFOycSle5DPcP270mEvChu26c1T1I",
+  apiKey: process.env.API_KEY,
   authDomain: "chat-app-878be.firebaseapp.com",
   projectId: "chat-app-878be",
   storageBucket: "chat-app-878be.appspot.com",
