@@ -120,10 +120,10 @@ const Search = ({ isCollapsed }) => {
       </div>
       {err && <span>User not found!</span>}
       {user && (
-        <div className="userChat" onClick={handleSelect}>
+        <div className="userChatSearching" onClick={handleSelect}>
           <img src={user.photoURL} alt="" />
           <div className="userChatInfo">
-            <span>{user.displayName}</span>
+            <span style={{ color: "#4399ff" }}>{user.displayName}</span>
           </div>
         </div>
       )}

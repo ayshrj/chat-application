@@ -263,6 +263,7 @@
         &:hover {
             background-color: #c8c8c8;
         }
+        
     
         img {
             width: 40px;
@@ -278,7 +279,60 @@
             width: 100%;
     
             .userChatInfo {
-                text-align: left; /* Align text to the left */
+                text-align: left;
+                span {
+                    color: #4399ff;
+                    font-size: 17px;
+                    font-weight: 500;
+                }
+    
+                p {
+                    font-size: 10px;
+                    color: #959595;
+                }
+            }
+    
+            .userChatInfoContent {
+                justify-self: left;
+            }
+    
+            .userChatInfoTime {
+                font-size: 10px;
+                color: #bababa;
+            }
+        }
+      }
+      
+      .userChatSearching {
+        padding: 10px 20px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        color: white;
+        cursor: pointer;
+        width: 90%;
+        border: 0;
+    
+        &:hover {
+            background-color: #e6e6e6;
+        }
+        
+    
+        img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+    
+        .userChatInfoContainer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+    
+            .userChatInfo {
+                text-align: left;
                 span {
                     color: #4399ff;
                     font-size: 17px;
